@@ -1,13 +1,14 @@
-
-operations_count = 0
+from pip._internal.utils import logging
 
 def main():
+    operations_count = 0
     ask_again = True
     while(ask_again):
         a = input("Enter the numerator: ")
         b = input("Enter the denominator: ")
         result = perform_division(a,b)
         print(result)
+        operations_count += 1
         ask_again = input("Do you want to perform another operation? Enter yes or no: ")
         if(ask_again == 'yes'):
             ask_again = True
@@ -17,12 +18,10 @@ def main():
 
 
 def perform_division(a,b):
-    global operations_count
     try:
-        operations_count += 1
         return int(a)/int(b)
-    except Exception as e:
-        pass
+    except ZeroDivisionError as e:
+        logging.exception( f'ZeroDivisionError: {e}')
 
 
 main()
